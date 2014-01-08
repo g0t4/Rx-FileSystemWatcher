@@ -9,6 +9,6 @@ msbuild :build do |msb|
 	msb.solution = 'src\\RxFileSystemWatcher.sln'
 end
 
-task :nuget do
+task :nuget => [:build] do
 	sh "src\\.nuget\\nuget pack src\\RxFileSystemWatcher\\RxFileSystemWatcher.csproj /OutputDirectory " + ENV["NuGetDevFeed"] + " -Prop Configuration=Release"
 end
