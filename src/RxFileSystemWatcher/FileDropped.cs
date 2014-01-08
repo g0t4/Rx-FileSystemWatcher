@@ -4,6 +4,10 @@
 
 	public class FileDropped
 	{
+		public FileDropped()
+		{
+		}
+
 		public FileDropped(FileSystemEventArgs fileEvent)
 		{
 			Name = fileEvent.Name;
