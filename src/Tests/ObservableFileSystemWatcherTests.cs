@@ -1,6 +1,5 @@
 ﻿namespace Tests
 {
-	using System;
 	using System.IO;
 	using System.Reactive.Linq;
 	using System.Reactive.Threading.Tasks;
@@ -9,17 +8,8 @@
 	using RxFileSystemWatcher;
 
 	[TestFixture]
-	public class ObservableFileSystemWatcherTests : AssertionHelper
+	public class ObservableFileSystemWatcherTests : FileIntegrationTestsBase
 	{
-		protected string TempPath;
-
-		[SetUp]
-		public void BeforeEachTest()
-		{
-			TempPath = Guid.NewGuid().ToString();
-			Directory.CreateDirectory(TempPath);
-		}
-
 		[Test]
 		[Timeout(2000)]
 		public async Task WriteToFile_StreamsChanged()
@@ -108,16 +98,6 @@
 				Expect(renamed.OldFullPath, Is.EqualTo(originalPath));
 				Expect(renamed.FullPath, Is.EqualTo(renamedPath));
 			}
-		}
-
-		[TearDown]
-		public void AfterEachTest()
-		{
-			if (!Directory.Exists(TempPath))
-			{
-				return;
-			}
-			Directory.Delete(TempPath, true);
 		}
 	}
 }

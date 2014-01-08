@@ -64,6 +64,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileDropWatcherTests.cs" />
+    <Compile Include="FileIntegrationTestsBase.cs" />
     <Compile Include="ObservableFileSystemWatcherTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
