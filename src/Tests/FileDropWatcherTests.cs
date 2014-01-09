@@ -1,6 +1,5 @@
 ﻿namespace Tests
 {
-	using System;
 	using System.IO;
 	using System.Reactive.Linq;
 	using System.Reactive.Threading.Tasks;
@@ -20,11 +19,12 @@
 				var firstDropped = watcher.Dropped.FirstAsync().ToTask();
 				watcher.Start();
 
-				File.WriteAllText(Path.Combine(TempPath, "Monitored.Txt"), "foo");
+				var monitoredFile = Path.Combine(TempPath, "Monitored.Txt");
+				File.WriteAllText(monitoredFile, "foo");
 
 				var dropped = await firstDropped;
 				Expect(dropped.Name, Is.EqualTo("Monitored.Txt"));
-				Expect(dropped.FullPath, Is.EqualTo(Path.Combine(TempPath, "Monitored.Txt")));
+				Expect(dropped.FullPath, Is.EqualTo(monitoredFile));
 			}
 		}
 
@@ -44,7 +44,7 @@
 
 				var dropped = await firstDropped;
 				Expect(dropped.Name, Is.EqualTo("Monitored.Txt"));
-				Expect(dropped.FullPath, Is.EqualTo(Path.Combine(TempPath, "Monitored.Txt")));
+				Expect(dropped.FullPath, Is.EqualTo(monitoredFile));
 			}
 		}
 
@@ -63,7 +63,25 @@
 
 				var dropped = await firstDropped;
 				Expect(dropped.Name, Is.EqualTo("Monitored.Txt"));
-				Expect(dropped.FullPath, Is.EqualTo(Path.Combine(TempPath, "Monitored.Txt")));
+				Expect(dropped.FullPath, Is.EqualTo(monitoredFile));
+			}
+		}
+
+		[Test]
+		[Timeout(2000)]
+		public async Task PollExisting_FileBeforeStart_StreamsDropped()
+		{
+			using (var watcher = new FileDropWatcher(TempPath, "Monitored.Txt"))
+			{
+				var firstDropped = watcher.Dropped.FirstAsync().ToTask();
+				var monitoredFile = Path.Combine(TempPath, "Monitored.Txt");
+				File.WriteAllText(monitoredFile, "foo");
+
+				watcher.PollExisting();
+
+				var dropped = await firstDropped;
+				Expect(dropped.Name, Is.EqualTo("Monitored.Txt"));
+				Expect(dropped.FullPath, Is.EqualTo(monitoredFile));
 			}
 		}
 	}

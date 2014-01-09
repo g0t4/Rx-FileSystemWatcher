@@ -14,6 +14,12 @@
 			FullPath = fileEvent.FullPath;
 		}
 
+		public FileDropped(string filePath)
+		{
+			Name = Path.GetFileName(filePath);
+			FullPath = filePath;
+		}
+
 		public string Name { get; set; }
 		public string FullPath { get; set; }
 	}
