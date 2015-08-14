@@ -1,6 +1,6 @@
 ﻿namespace Tests
 {
-	using System.IO;
+    using System.IO;
 	using System.Reactive.Linq;
 	using System.Reactive.Threading.Tasks;
 	using System.Threading.Tasks;
@@ -84,5 +84,24 @@
 				Expect(dropped.FullPath, Is.EqualTo(monitoredFile));
 			}
 		}
-	}
+
+        [Test]
+        [Timeout(2000)]
+        public async Task PollExisting_SecondTime_StreamsSecondTime()
+        {
+            using (var watcher = new FileDropWatcher(TempPath, "Monitored.Txt"))
+            {
+                var secondDropped = watcher.Dropped.Skip(1).FirstAsync().ToTask();
+                var monitoredFile = Path.Combine(TempPath, "Monitored.Txt");
+                File.WriteAllText(monitoredFile, "foo");
+
+                watcher.PollExisting();
+                watcher.PollExisting();
+
+                var dropped = await secondDropped;
+                Expect(dropped.Name, Is.EqualTo("Monitored.Txt"));
+                Expect(dropped.FullPath, Is.EqualTo(monitoredFile));
+            }
+        }
+    }
 }

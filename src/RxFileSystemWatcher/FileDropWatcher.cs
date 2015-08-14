@@ -62,10 +62,10 @@
 		/// </summary>
 		public void PollExisting()
 		{
-			Directory.GetFiles(_Path, _Filter)
-				.Select(file => new FileDropped(file))
-				.ToObservable()
-				.Subscribe(_PollResults);
-		}
+            foreach (var existingFile in Directory.GetFiles(_Path, _Filter))
+            {
+                _PollResults.OnNext(new FileDropped(existingFile));
+            }
+        }
 	}
 }
