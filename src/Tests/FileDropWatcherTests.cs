@@ -1,4 +1,6 @@
-﻿namespace Tests
+﻿using Microsoft.Reactive.Testing;
+
+namespace Tests
 {
     using System.IO;
 	using System.Reactive.Linq;
@@ -14,7 +16,7 @@
 		[Timeout(2000)]
 		public async Task FileDropped_NoExistingFile_StreamsDropped()
 		{
-			using (var watcher = new FileDropWatcher(TempPath, "Monitored.Txt"))
+            using (var watcher = new FileDropWatcher(TempPath, "Monitored.Txt"))
 			{
 				var firstDropped = watcher.Dropped.FirstAsync().ToTask();
 				watcher.Start();

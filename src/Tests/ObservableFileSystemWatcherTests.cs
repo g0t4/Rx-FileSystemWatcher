@@ -1,8 +1,11 @@
-﻿namespace Tests
+﻿using System.Reactive.Threading.Tasks;
+
+namespace Tests
 {
 	using System.IO;
+    using System.Reactive;
 	using System.Reactive.Linq;
-	using System.Reactive.Threading.Tasks;
+	using System.Reactive.Concurrency;
 	using System.Threading.Tasks;
 	using NUnit.Framework;
 	using RxFileSystemWatcher;

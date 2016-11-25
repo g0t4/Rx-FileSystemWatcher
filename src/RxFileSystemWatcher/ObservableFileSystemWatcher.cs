@@ -23,11 +23,11 @@
     {
 		public readonly FileSystemWatcher Watcher;
 
-		public IObservable<FileSystemEventArgs> Changed { get; private set; }
-		public IObservable<RenamedEventArgs> Renamed { get; private set; }
-		public IObservable<FileSystemEventArgs> Deleted { get; private set; }
-		public IObservable<ErrorEventArgs> Errors { get; private set; }
-		public IObservable<FileSystemEventArgs> Created { get; private set; }
+		public IObservable<FileSystemEventArgs> Changed { get; }
+		public IObservable<RenamedEventArgs> Renamed { get; }
+		public IObservable<FileSystemEventArgs> Deleted { get; }
+		public IObservable<ErrorEventArgs> Errors { get; }
+		public IObservable<FileSystemEventArgs> Created { get; }
 
 		/// <summary>
 		///     Pass an existing FileSystemWatcher instance, this is just for the case where it's not possible to only pass the
