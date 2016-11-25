@@ -4,12 +4,23 @@
 	using System.IO;
 	using System.Reactive.Linq;
 
-	/// <summary>
+    public interface IObservableFileSystemWatcher
+    {
+        IObservable<FileSystemEventArgs> Changed { get; }
+        IObservable<RenamedEventArgs> Renamed { get; }
+        IObservable<FileSystemEventArgs> Deleted { get; }
+        IObservable<ErrorEventArgs> Errors { get; }
+        IObservable<FileSystemEventArgs> Created { get; }
+        void Start();
+        void Stop();
+    }
+
+    /// <summary>
 	///     This is a wrapper around a file system watcher to use the Rx framework instead of event handlers to handle
 	///     notifications of file system changes.
 	/// </summary>
-	public class ObservableFileSystemWatcher : IDisposable
-	{
+	public class ObservableFileSystemWatcher : IDisposable, IObservableFileSystemWatcher
+    {
 		public readonly FileSystemWatcher Watcher;
 
 		public IObservable<FileSystemEventArgs> Changed { get; private set; }
