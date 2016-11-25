@@ -13,9 +13,9 @@
     <description>A set of reactive/observable wrappers around the FileSystemWatcher.</description>
     <releaseNotes>Added FileDropWatcher.PollExisting functionality.</releaseNotes>
     <copyright></copyright>
-    <tags>FileSystemWatcher Observable Reactive Rx</tags>
+    <tags>FileSystemWatcher Observable System.Reactive</tags>
     <dependencies>
-        <dependency id="Rx-Main" version="2.2.0"/>          
+        <dependency id="System.Reactive" version="3.1.1"/>          
     </dependencies>
   </metadata>
 </package>
