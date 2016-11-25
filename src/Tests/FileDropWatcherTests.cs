@@ -1,6 +1,4 @@
-﻿using Microsoft.Reactive.Testing;
-
-namespace Tests
+﻿namespace Tests
 {
     using System.IO;
 	using System.Reactive.Linq;

@@ -3,9 +3,7 @@
 namespace Tests
 {
 	using System.IO;
-    using System.Reactive;
 	using System.Reactive.Linq;
-	using System.Reactive.Concurrency;
 	using System.Threading.Tasks;
 	using NUnit.Framework;
 	using RxFileSystemWatcher;
