@@ -1,4 +1,4 @@
-﻿namespace RxFileSystemWatcher
+namespace RxFileSystemWatcher
 {
 	using System;
 	using System.IO;
@@ -15,11 +15,14 @@
 		private readonly string _Filter;
 		private readonly ObservableFileSystemWatcher _Watcher;
 		private readonly Subject<FileDropped> _PollResults = new Subject<FileDropped>();
+		private readonly SearchOption _searchOption;
 
 		public IObservable<FileDropped> Dropped { get; private set; }
 
-		public FileDropWatcher(string path, string filter)
+		public FileDropWatcher(string path, string filter, SearchOption searchOption = SearchOption.TopDirectoryOnly)
 		{
+			_searchOption = searchOption;
+			bool includeSubdirectories = searchOption == SearchOption.AllDirectories;
 			_Path = path;
 			_Filter = filter;
 			_Watcher = new ObservableFileSystemWatcher(w =>
@@ -28,6 +31,7 @@
 				w.Filter = filter;
 				// note: filtering on changes can help reduce excessive notifications, make sure to verify any changes with integration tests
 				w.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName;
+				w.IncludeSubdirectories = includeSubdirectories;
 			});
 
 			var renames = _Watcher.Renamed.Select(r => new FileDropped(r));
@@ -62,10 +66,10 @@
 		/// </summary>
 		public void PollExisting()
 		{
-            foreach (var existingFile in Directory.GetFiles(_Path, _Filter))
-            {
-                _PollResults.OnNext(new FileDropped(existingFile));
-            }
-        }
+			foreach (var existingFile in Directory.GetFiles(_Path, _Filter, _searchOption))
+			{
+				_PollResults.OnNext(new FileDropped(existingFile));
+			}
+		}
 	}
 }
