@@ -22,7 +22,7 @@ namespace RxFileSystemWatcher.Tests
                 File.WriteAllText(monitoredFile, "foo");
 
                 var dropped = await firstDropped;
-                Assert.Equal(dropped.Name, "Monitored.Txt");
+                Assert.Equal("Monitored.Txt", dropped.Name);
                 Assert.Equal(dropped.FullPath, monitoredFile);
             }
         }
@@ -41,7 +41,7 @@ namespace RxFileSystemWatcher.Tests
                 File.Move(otherFile, monitoredFile);
 
                 var dropped = await firstDropped;
-                Assert.Equal(dropped.Name, "Monitored.Txt");
+                Assert.Equal( "Monitored.Txt", dropped.Name);
                 Assert.Equal(dropped.FullPath, monitoredFile);
             }
         }
@@ -59,7 +59,7 @@ namespace RxFileSystemWatcher.Tests
                 File.WriteAllText(monitoredFile, "bar");
 
                 var dropped = await firstDropped;
-                Assert.Equal(dropped.Name, "Monitored.Txt");
+                Assert.Equal("Monitored.Txt", dropped.Name);
                 Assert.Equal(dropped.FullPath, monitoredFile);
             }
         }
@@ -76,7 +76,7 @@ namespace RxFileSystemWatcher.Tests
                 watcher.PollExisting();
 
                 var dropped = await firstDropped;
-                Assert.Equal(dropped.Name, "Monitored.Txt");
+                Assert.Equal("Monitored.Txt", dropped.Name);
                 Assert.Equal(dropped.FullPath, monitoredFile);
             }
         }
@@ -94,7 +94,7 @@ namespace RxFileSystemWatcher.Tests
                 watcher.PollExisting();
 
                 var dropped = await secondDropped;
-                Assert.Equal(dropped.Name, "Monitored.Txt");
+                Assert.Equal("Monitored.Txt", dropped.Name);
                 Assert.Equal(dropped.FullPath, monitoredFile);
             }
         }

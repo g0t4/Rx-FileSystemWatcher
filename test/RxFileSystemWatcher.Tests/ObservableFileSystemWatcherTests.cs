@@ -20,8 +20,8 @@ namespace RxFileSystemWatcher.Tests
                 File.WriteAllText(Path.Combine(TempPath, "Changed.Txt"), "foo");
 
                 var changed = await firstChanged;
-                Assert.Equal(changed.ChangeType, WatcherChangeTypes.Changed);
-                Assert.Equal(changed.Name, "Changed.Txt");
+                Assert.Equal(WatcherChangeTypes.Changed, changed.ChangeType);
+                Assert.Equal("Changed.Txt", changed.Name);
             }
         }
 
@@ -37,8 +37,8 @@ namespace RxFileSystemWatcher.Tests
                 File.WriteAllText(filePath, "foo");
 
                 var created = await firstCreated;
-                Assert.Equal(created.ChangeType, WatcherChangeTypes.Created);
-                Assert.Equal(created.Name, "Created.Txt");
+                Assert.Equal(WatcherChangeTypes.Created, created.ChangeType);
+                Assert.Equal("Created.Txt", created.Name);
             }
         }
 
@@ -55,8 +55,8 @@ namespace RxFileSystemWatcher.Tests
                 File.Delete(filePath);
 
                 var deleted = await firstDeleted;
-                Assert.Equal(deleted.ChangeType, WatcherChangeTypes.Deleted);
-                Assert.Equal(deleted.Name, "ToDelete.Txt");
+                Assert.Equal(WatcherChangeTypes.Deleted, deleted.ChangeType);
+                Assert.Equal("ToDelete.Txt", deleted.Name);
             }
         }
 
@@ -71,7 +71,7 @@ namespace RxFileSystemWatcher.Tests
                 Directory.Delete(TempPath);
 
                 var error = await firstError;
-                Assert.Equal(error.GetException().Message, "Access is denied");
+                Assert.Equal("Access is denied", error.GetException().Message);
             }
         }
 
