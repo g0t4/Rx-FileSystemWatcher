@@ -20,8 +20,8 @@ namespace RxFileSystemWatcher.Tests
                 File.WriteAllText(Path.Combine(TempPath, "Changed.Txt"), "foo");
 
                 var changed = await firstChanged;
-                Expect(changed.ChangeType, Is.EqualTo(WatcherChangeTypes.Changed));
-                Expect(changed.Name, Is.EqualTo("Changed.Txt"));
+                Assert.Equal(changed.ChangeType, WatcherChangeTypes.Changed);
+                Assert.Equal(changed.Name, "Changed.Txt");
             }
         }
 
@@ -37,8 +37,8 @@ namespace RxFileSystemWatcher.Tests
                 File.WriteAllText(filePath, "foo");
 
                 var created = await firstCreated;
-                Expect(created.ChangeType, Is.EqualTo(WatcherChangeTypes.Created));
-                Expect(created.Name, Is.EqualTo("Created.Txt"));
+                Assert.Equal(created.ChangeType, WatcherChangeTypes.Created);
+                Assert.Equal(created.Name, "Created.Txt");
             }
         }
 
@@ -55,8 +55,8 @@ namespace RxFileSystemWatcher.Tests
                 File.Delete(filePath);
 
                 var deleted = await firstDeleted;
-                Expect(deleted.ChangeType, Is.EqualTo(WatcherChangeTypes.Deleted));
-                Expect(deleted.Name, Is.EqualTo("ToDelete.Txt"));
+                Assert.Equal(deleted.ChangeType, WatcherChangeTypes.Deleted);
+                Assert.Equal(deleted.Name, "ToDelete.Txt");
             }
         }
 
@@ -71,7 +71,7 @@ namespace RxFileSystemWatcher.Tests
                 Directory.Delete(TempPath);
 
                 var error = await firstError;
-                Expect(error.GetException().Message, Is.EqualTo("Access is denied"));
+                Assert.Equal(error.GetException().Message, "Access is denied");
             }
         }
 
@@ -89,8 +89,8 @@ namespace RxFileSystemWatcher.Tests
                 File.Move(originalPath, renamedPath);
 
                 var renamed = await firstRenamed;
-                Expect(renamed.OldFullPath, Is.EqualTo(originalPath));
-                Expect(renamed.FullPath, Is.EqualTo(renamedPath));
+                Assert.Equal(renamed.OldFullPath, originalPath);
+                Assert.Equal(renamed.FullPath, renamedPath);
             }
         }
     }

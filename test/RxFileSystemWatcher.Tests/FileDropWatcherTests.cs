@@ -22,8 +22,8 @@ namespace RxFileSystemWatcher.Tests
                 File.WriteAllText(monitoredFile, "foo");
 
                 var dropped = await firstDropped;
-                Expect(dropped.Name, Is.EqualTo("Monitored.Txt"));
-                Expect(dropped.FullPath, Is.EqualTo(monitoredFile));
+                Assert.Equal(dropped.Name, "Monitored.Txt");
+                Assert.Equal(dropped.FullPath, monitoredFile);
             }
         }
 
@@ -41,8 +41,8 @@ namespace RxFileSystemWatcher.Tests
                 File.Move(otherFile, monitoredFile);
 
                 var dropped = await firstDropped;
-                Expect(dropped.Name, Is.EqualTo("Monitored.Txt"));
-                Expect(dropped.FullPath, Is.EqualTo(monitoredFile));
+                Assert.Equal(dropped.Name, "Monitored.Txt");
+                Assert.Equal(dropped.FullPath, monitoredFile);
             }
         }
 
@@ -59,8 +59,8 @@ namespace RxFileSystemWatcher.Tests
                 File.WriteAllText(monitoredFile, "bar");
 
                 var dropped = await firstDropped;
-                Expect(dropped.Name, Is.EqualTo("Monitored.Txt"));
-                Expect(dropped.FullPath, Is.EqualTo(monitoredFile));
+                Assert.Equal(dropped.Name, "Monitored.Txt");
+                Assert.Equal(dropped.FullPath, monitoredFile);
             }
         }
 
@@ -76,8 +76,8 @@ namespace RxFileSystemWatcher.Tests
                 watcher.PollExisting();
 
                 var dropped = await firstDropped;
-                Expect(dropped.Name, Is.EqualTo("Monitored.Txt"));
-                Expect(dropped.FullPath, Is.EqualTo(monitoredFile));
+                Assert.Equal(dropped.Name, "Monitored.Txt");
+                Assert.Equal(dropped.FullPath, monitoredFile);
             }
         }
 
@@ -94,8 +94,8 @@ namespace RxFileSystemWatcher.Tests
                 watcher.PollExisting();
 
                 var dropped = await secondDropped;
-                Expect(dropped.Name, Is.EqualTo("Monitored.Txt"));
-                Expect(dropped.FullPath, Is.EqualTo(monitoredFile));
+                Assert.Equal(dropped.Name, "Monitored.Txt");
+                Assert.Equal(dropped.FullPath, monitoredFile);
             }
         }
     }

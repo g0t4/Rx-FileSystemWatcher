@@ -15,8 +15,7 @@ namespace RxFileSystemWatcher.Tests
             Directory.CreateDirectory(TempPath);
         }
 
-        [TearDown]
-        public void IDispose()
+        public void Dispose()
         {
             if (!Directory.Exists(TempPath))
             {
