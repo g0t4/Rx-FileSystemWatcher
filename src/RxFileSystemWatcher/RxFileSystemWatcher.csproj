@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <VersionPrefix>1.1.0</VersionPrefix>
-    <VersionSuffix>$([System.DateTime]::Now.ToString(yyyyMMddmmss))</VersionSuffix>
+    <VersionSuffix>rc-$([System.DateTime]::Now.ToString(yyyyMMddmmss))</VersionSuffix>
 
   </PropertyGroup>
 
