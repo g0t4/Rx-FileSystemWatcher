@@ -22,5 +22,6 @@ namespace RxFileSystemWatcher
 
         public string Name { get; set; }
         public string FullPath { get; set; }
+        public ChangeType DroppedType { get; set; }
     }
 }

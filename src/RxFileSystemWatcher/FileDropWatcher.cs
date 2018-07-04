@@ -30,9 +30,9 @@ namespace RxFileSystemWatcher
                 w.NotifyFilter = NotifyFilters.LastWrite | NotifyFilters.FileName;
             });
 
-            var renames = _Watcher.Renamed.Select(r => new FileDropped(r));
-            var creates = _Watcher.Created.Select(c => new FileDropped(c));
-            var changed = _Watcher.Changed.Select(c => new FileDropped(c));
+            var renames = _Watcher.Renamed.Select(r => new FileDropped(r) { DroppedType = ChangeType.Renamed });
+            var creates = _Watcher.Created.Select(c => new FileDropped(c) { DroppedType = ChangeType.Created });
+            var changed = _Watcher.Changed.Select(c => new FileDropped(c) { DroppedType = ChangeType.Changed });
 
             Dropped = creates
                 .Merge(renames)
@@ -64,7 +64,7 @@ namespace RxFileSystemWatcher
         {
             foreach (var existingFile in Directory.GetFiles(_Path, _Filter))
             {
-                _PollResults.OnNext(new FileDropped(existingFile));
+                _PollResults.OnNext(new FileDropped(existingFile) { DroppedType = ChangeType.DiscoveredFromPolling });
             }
         }
     }
