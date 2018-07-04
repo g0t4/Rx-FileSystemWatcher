@@ -2,10 +2,27 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionSuffix>$([System.DateTime]::Now.ToString(yyyyMMddmmss))</VersionSuffix>
+
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- https://github.com/dotnet/sourcelink -->
+
+    <!-- Optional: Declare that the Repository URL can be published to NuSpec -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <!-- Optional: Embed source files that are not tracked by the source control manager to the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+    <!-- Optional: Include PDB in the built .nupkg -->
+    <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Reactive" Version="4.0.0" />
+
+    <!-- https://github.com/dotnet/sourcelink -->
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0-beta-63102-01" PrivateAssets="All"/>
   </ItemGroup>
 
 </Project>
