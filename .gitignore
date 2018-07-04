@@ -1,4 +1,9 @@
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 bin/
 obj/
+
+# Visual Studio working folder
+.vs/
+
+# Fake build folder
 .fake/
