@@ -76,7 +76,7 @@
 				Directory.Delete(TempPath);
 
 				var error = await firstError;
-				Expect(error.GetException().Message, Is.EqualTo("Access is denied"));
+				Expect(error.GetException().HResult, Is.EqualTo(-2147467259));
 			}
 		}
 
